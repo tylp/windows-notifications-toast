@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Windows.UI.Notifications;
 
 namespace windows_notifications_toast
 {
@@ -23,6 +13,20 @@ namespace windows_notifications_toast
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ToastContent toastContent = new ToastContentBuilder()
+                .AddToastActivationInfo("action=viewConversation&conversationId=5", ToastActivationType.Foreground)
+                .AddText("Hello world!")
+                .GetToastContent();
+
+            // And create the toast notification
+            var toast = new ToastNotification(toastContent.GetXml());
+
+            // And then show it
+            DesktopNotificationManagerCompat.CreateToastNotifier().Show(toast);
         }
     }
 }
